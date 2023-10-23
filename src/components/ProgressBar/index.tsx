@@ -30,7 +30,6 @@ export function ProgressBar({ total, current }: Props) {
 
   return (
     <View style={styles.track}>
-      {/* @ts-ignore */}
       <Animated.View style={[styles.progress, styleAnimated]} />
     </View>
   );
