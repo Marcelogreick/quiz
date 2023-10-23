@@ -150,7 +150,6 @@ export function Quiz() {
           currentQuestion={currentQuestion + 1}
           totalOfQuestions={quiz.questions.length}
         />
-        {/* @ts-ignore */}
         <Animated.View style={shakeAnimationStyle}>
           <Question
             key={quiz.questions[currentQuestion].title}

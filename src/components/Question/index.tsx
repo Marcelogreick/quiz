@@ -47,26 +47,23 @@ export function Question({
   });
 
   return (
-    <>
-      {/* @ts-ignore */}
-      <Animated.View
-        style={styles.container}
-        entering={enteringKyeFrame}
-        exiting={exitingKyeFrame.duration(400)}
-      >
-        <Text style={styles.title}>{question.title}</Text>
+    <Animated.View
+      style={styles.container}
+      entering={enteringKyeFrame}
+      exiting={exitingKyeFrame.duration(400)}
+    >
+      <Text style={styles.title}>{question.title}</Text>
 
-        {question.alternatives.map((alternative, index) => (
-          <Option
-            key={index}
-            title={alternative}
-            checked={alternativeSelected === index}
-            onPress={() =>
-              setAlternativeSelected && setAlternativeSelected(index)
-            }
-          />
-        ))}
-      </Animated.View>
-    </>
+      {question.alternatives.map((alternative, index) => (
+        <Option
+          key={index}
+          title={alternative}
+          checked={alternativeSelected === index}
+          onPress={() =>
+            setAlternativeSelected && setAlternativeSelected(index)
+          }
+        />
+      ))}
+    </Animated.View>
   );
 }
