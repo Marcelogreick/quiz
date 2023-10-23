@@ -71,22 +71,25 @@ export function Level({
   }, [isChecked]);
 
   return (
-    <Pressable
-      {...rest}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      style={[
-        styles.container,
-        {
-          borderColor: COLOR,
-        },
-        animatedContainerStyle,
-      ]}
-    >
+    <>
       {/* @ts-ignore */}
-      <Animated.Text style={[styles.title, animatedTextStyle]}>
-        {title}
-      </Animated.Text>
-    </Pressable>
+      <PressableAnimated
+        {...rest}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        style={[
+          styles.container,
+          {
+            borderColor: COLOR,
+          },
+          animatedContainerStyle,
+        ]}
+      >
+        {/* @ts-ignore */}
+        <Animated.Text style={[styles.title, animatedTextStyle]}>
+          {title}
+        </Animated.Text>
+      </PressableAnimated>
+    </>
   );
 }
