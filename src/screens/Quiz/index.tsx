@@ -169,6 +169,7 @@ export function Quiz() {
   });
 
   const onPan = Gesture.Pan()
+    .activateAfterLongPress(200)
     .onUpdate((event) => {
       const moveToLeft = event.translationX < 0;
 
@@ -178,7 +179,7 @@ export function Quiz() {
     })
     .onEnd((event) => {
       if (event.translationX < CARD_SKIP_DISTANCE) {
-        return handleNextQuestion();
+        runOnJS(handleNextQuestion)();
       }
 
       cardPosition.value = withTiming(0);
@@ -202,7 +203,7 @@ export function Quiz() {
 
   useEffect(() => {
     if (quiz.questions) {
-      runOnJS(handleNextQuestion)();
+      handleNextQuestion();
     }
   }, [points]);
 
