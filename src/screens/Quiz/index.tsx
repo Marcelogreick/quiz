@@ -136,7 +136,7 @@ export function Quiz() {
       color: THEME.COLORS.GREY_500,
       width: "110%",
       left: "-5%",
-      opacity: interpolate(scrollY.value, [50, 9], [0, 1], Extrapolate.CLAMP),
+      opacity: interpolate(scrollY.value, [50, 90], [0, 10], Extrapolate.CLAMP),
       transform: [
         {
           translateY: interpolate(
