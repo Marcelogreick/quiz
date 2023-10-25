@@ -22,6 +22,7 @@ import Animated, {
   useAnimatedScrollHandler,
   Extrapolate,
   runOnJS,
+  Easing,
 } from "react-native-reanimated";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { ProgressBar } from "../../components/ProgressBar";
@@ -95,14 +96,13 @@ export function Quiz() {
     if (quiz.questions[currentQuestion].correct === alternativeSelected) {
       setStatusReply(1);
       setPoints((prevState) => prevState + 1);
+      handleNextQuestion();
     } else {
       setStatusReply(2);
       shakeAnimation();
     }
 
     setAlternativeSelected(null);
-
-    handleNextQuestion();
   }
 
   function handleStop() {
@@ -122,7 +122,15 @@ export function Quiz() {
   }
 
   const shakeAnimation = () => {
-    shake.value = withSequence(withTiming(3), withTiming(0));
+    shake.value = withSequence(
+      withTiming(3, { duration: 400, easing: Easing.bounce }),
+      withTiming(0, undefined, (finished) => {
+        "worklet";
+        if (finished) {
+          runOnJS(handleNextQuestion)();
+        }
+      })
+    );
   };
 
   const shakeAnimationStyle = useAnimatedStyle(() => {
@@ -206,12 +214,6 @@ export function Quiz() {
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (quiz.questions) {
-      handleNextQuestion();
-    }
-  }, [points]);
-
   if (isLoading) {
     return <Loading />;
   }
@@ -249,6 +251,7 @@ export function Quiz() {
               question={quiz.questions[currentQuestion]}
               alternativeSelected={alternativeSelected}
               setAlternativeSelected={setAlternativeSelected}
+              onUnmount={() => setStatusReply(0)}
             />
           </Animated.View>
         </GestureDetector>
